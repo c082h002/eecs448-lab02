@@ -30,7 +30,7 @@ template <typename T>
 int LinkedList<T>::size() const
 {
 	
-	
+	return(m_size);
 }
 
 template <typename T>
