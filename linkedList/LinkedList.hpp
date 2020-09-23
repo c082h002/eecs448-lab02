@@ -30,7 +30,15 @@ template <typename T>
 int LinkedList<T>::size() const
 {
 	
-	return(m_size);
+	if(isEmpty())
+	{
+		return 0;
+	}
+	else
+	{
+		return m_size;
+	}
+	return(0);
 }
 
 template <typename T>
@@ -39,29 +47,14 @@ bool LinkedList<T>::search(T value) const
 	Node<T>* temp = m_front;
 	bool isFound = false;
 
-	if (isEmpty())
-    {
-        return (false);
-    }
-    else if (search->getValue() == value)
-    {
-         isFound = true;
-    }
-    else
-    {
-        while(search->getNext() != nullptr)
-        {
-           search = search->getNext();
-           if (search->getValue() == value)
-           {
-               isFound = true;
-           }
-        }
-
-
-     }
-    search->getNext();
-
+	while (temp != nullptr)
+	{
+		if(temp->getValue() == value)
+		{
+			isFound = true;
+		}
+		temp = temp->getNext();
+	}
 	return(isFound);
 }
 
@@ -122,25 +115,20 @@ return(m_size);
 	Node<T>* secondintoLast = nullptr;
 	bool isRemoved = false;
 
-	if (isEmpty())
-    {
-        return (false);
-    }
-    else
-    {
-        
-        lastNode = m_front;
-
-        while (lastNode->getNext(lastNode->getNext()) != nullptr)
-        {
-            lastNode = lastNode->getNext();
-        }
-	secondintoLast->setNext(lastNode->getNext());
-        delete secondintoLast;
-        m_size--;
-	isRemoved = true;
-    }
-
+	if(!isEmpty())
+	{
+		secondintoLast = m_front;
+		lastNode = secondintoLast->getNext();
+		while (lastNode->getNext() != nullptr)
+		{
+			secondintoLast = secondintoLast->getNext();
+			lastNode = secondintoLast->getNext();
+		}
+		delete lastNode;
+		secondintoLast->setNext(nullptr);
+		m_size--;
+		isRemoved = true;
+	}
 	return(isRemoved);
 }	
 
